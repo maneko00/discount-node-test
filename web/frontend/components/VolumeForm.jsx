@@ -157,7 +157,7 @@ export function VolumeForm({volume: initialVolume, pageTitle: pageTitle}) {
         }
 
         const data = (await response.json()).data;
-        const remoteErrors = data.discountUpdate.userErrors
+        const remoteErrors = data.discount.userErrors
         if (remoteErrors.length > 0) {
             return { status: 'fail', errors: remoteErrors }
         }

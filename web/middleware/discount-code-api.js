@@ -2,7 +2,7 @@ import { Shopify } from "@shopify/shopify-api";
 
 const CREATE_CODE_MUTATION = `
 mutation CreateCodeDiscount($discount: DiscountCodeAppInput!) {
-  discountCreate: discountCodeAppCreate(codeAppDiscount: $discount) {
+  discount: discountCodeAppCreate(codeAppDiscount: $discount) {
     userErrors {
       code
       message
@@ -14,7 +14,7 @@ mutation CreateCodeDiscount($discount: DiscountCodeAppInput!) {
 
 const UPDATE_CODE_MUTATION = `
   mutation UpdateCodeDiscount($discount: DiscountCodeAppInput!, $id: ID!) {
-    discountUpdate: discountCodeAppUpdate(
+    discount: discountCodeAppUpdate(
       codeAppDiscount: $discount,
       id: $id
     ) {
@@ -29,7 +29,7 @@ const UPDATE_CODE_MUTATION = `
 
 export const CREATE_AUTOMATIC_MUTATION = `
 mutation CreateAutomaticDiscount($discount: DiscountAutomaticAppInput!) {
-  discountCreate: discountAutomaticAppCreate(
+  discount: discountAutomaticAppCreate(
     automaticAppDiscount: $discount
   ) {
     userErrors {
@@ -43,7 +43,7 @@ mutation CreateAutomaticDiscount($discount: DiscountAutomaticAppInput!) {
 
 const UPDATE_AUTOMATIC_MUTATION = `
 mutation UpdateAutomaticDiscount($discount: DiscountAutomaticAppInput!, $id: ID!) {
-  discountUpdate: discountAutomaticAppUpdate(
+  discount: discountAutomaticAppUpdate(
     automaticAppDiscount: $discount,
     id: $id
   ) {
@@ -132,7 +132,6 @@ const DISCOUNT_AUTOMATIC_QUERY = `
  * @returns {boolean|null} `true`：コード割引、`false`：自動割引、`null`：待機中
  */
 const IsDiscountCode = (discounts) => {
-    // console.log(discounts)
     const id = discounts?.data.discountNode.id
     if(id == undefined)
     {
@@ -178,7 +177,7 @@ export default function applyDiscountCodeApiEndpoints(app) {
 
         res.send(data.body);
     };
-    
+
     const runDiscountUpdateMutation = async (req, res, mutation) => {
         const client = await getClient(req, res);
         if(client === null) {
